@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  BSC
+
+  Created by Marek Pridal on 26.05.18.
+  Copyright © 2018 Marek Pridal. All rights reserved.
+*/
+"Dismiss" = "Dismiss";
+"Settings" = "Settings";
+"EnglishLanguage" = "English language";
+"CzechLanguage" = "Czech language";
+"Save" = "Save";
+"Cancel" = "Cancel";

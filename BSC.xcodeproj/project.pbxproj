@@ -17,6 +17,12 @@
 		DF3725CD20B89938004F75DC /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725CC20B89938004F75DC /* NotesViewController.swift */; };
 		DF3725CF20B89970004F75DC /* NotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725CE20B89970004F75DC /* NotesViewModel.swift */; };
 		DF3725D120B89BEC004F75DC /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D020B89BEC004F75DC /* UIViewControllerExtensions.swift */; };
+		DF3725D320B9B1F3004F75DC /* NoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D220B9B1F3004F75DC /* NoteDetailViewController.swift */; };
+		DF3725D520B9B21A004F75DC /* NoteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D420B9B21A004F75DC /* NoteDetailViewModel.swift */; };
+		DF3725D720B9B5C5004F75DC /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D620B9B5C5004F75DC /* Identifier.swift */; };
+		DF3725D920B9C19C004F75DC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D820B9C19C004F75DC /* SettingsViewController.swift */; };
+		DF3725DB20B9C270004F75DC /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725DA20B9C270004F75DC /* Localizable.swift */; };
+		DF3725DE20B9C450004F75DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF3725E020B9C450004F75DC /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +39,15 @@
 		DF3725CC20B89938004F75DC /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		DF3725CE20B89970004F75DC /* NotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModel.swift; sourceTree = "<group>"; };
 		DF3725D020B89BEC004F75DC /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		DF3725D220B9B1F3004F75DC /* NoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailViewController.swift; sourceTree = "<group>"; };
+		DF3725D420B9B21A004F75DC /* NoteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteDetailViewModel.swift; path = BSC/Models/NoteDetailViewModel.swift; sourceTree = SOURCE_ROOT; };
+		DF3725D620B9B5C5004F75DC /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
+		DF3725D820B9C19C004F75DC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DF3725DA20B9C270004F75DC /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		DF3725DF20B9C450004F75DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF3725E120B9C468004F75DC /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF3725E320B9C670004F75DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		DF3725E520B9C671004F75DC /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main.strings; sourceTree = "<group>"; };
 		FAD85E4F6CF33870E8029A3A /* Pods-BSC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSC/Pods-BSC.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +101,7 @@
 		DF3725AD20B88EFE004F75DC /* BSC */ = {
 			isa = PBXGroup;
 			children = (
+				DF3725E620B9C7BA004F75DC /* Localizable */,
 				DF3725C520B88F6C004F75DC /* Support */,
 				DF3725C420B88F54004F75DC /* Storyboards */,
 				DF3725C320B88F41004F75DC /* Models */,
@@ -115,7 +131,9 @@
 		DF3725C220B88F3A004F75DC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				DF3725D220B9B1F3004F75DC /* NoteDetailViewController.swift */,
 				DF3725CC20B89938004F75DC /* NotesViewController.swift */,
+				DF3725D820B9C19C004F75DC /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -124,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				DF3725CE20B89970004F75DC /* NotesViewModel.swift */,
+				DF3725D420B9B21A004F75DC /* NoteDetailViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -144,8 +163,18 @@
 				DF3725B520B88EFF004F75DC /* Assets.xcassets */,
 				DF3725BA20B88EFF004F75DC /* Info.plist */,
 				DF3725D020B89BEC004F75DC /* UIViewControllerExtensions.swift */,
+				DF3725D620B9B5C5004F75DC /* Identifier.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		DF3725E620B9C7BA004F75DC /* Localizable */ = {
+			isa = PBXGroup;
+			children = (
+				DF3725E020B9C450004F75DC /* Localizable.strings */,
+				DF3725DA20B9C270004F75DC /* Localizable.swift */,
+			);
+			path = Localizable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +221,7 @@
 			knownRegions = (
 				en,
 				Base,
+				cs,
 			);
 			mainGroup = DF3725A220B88EFE004F75DC;
 			productRefGroup = DF3725AC20B88EFE004F75DC /* Products */;
@@ -209,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF3725B920B88EFF004F75DC /* LaunchScreen.storyboard in Resources */,
+				DF3725DE20B9C450004F75DC /* Localizable.strings in Resources */,
 				DF3725B620B88EFF004F75DC /* Assets.xcassets in Resources */,
 				DF3725B420B88EFE004F75DC /* Main.storyboard in Resources */,
 			);
@@ -264,7 +295,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF3725DB20B9C270004F75DC /* Localizable.swift in Sources */,
 				DF3725CD20B89938004F75DC /* NotesViewController.swift in Sources */,
+				DF3725D720B9B5C5004F75DC /* Identifier.swift in Sources */,
+				DF3725D520B9B21A004F75DC /* NoteDetailViewModel.swift in Sources */,
+				DF3725D920B9C19C004F75DC /* SettingsViewController.swift in Sources */,
+				DF3725D320B9B1F3004F75DC /* NoteDetailViewController.swift in Sources */,
 				DF3725CF20B89970004F75DC /* NotesViewModel.swift in Sources */,
 				DF3725CB20B890A2004F75DC /* NoteTO.swift in Sources */,
 				DF3725C920B88FF7004F75DC /* Networking.swift in Sources */,
@@ -280,6 +316,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DF3725B320B88EFE004F75DC /* Base */,
+				DF3725E320B9C670004F75DC /* en */,
+				DF3725E520B9C671004F75DC /* cs */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -292,6 +330,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		DF3725E020B9C450004F75DC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF3725DF20B9C450004F75DC /* en */,
+				DF3725E120B9C468004F75DC /* cs */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -299,6 +346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -359,6 +407,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

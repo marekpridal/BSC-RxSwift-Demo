@@ -11,4 +11,8 @@ import Foundation
 struct NoteTO: Codable {
     let id:Int?
     let title:String
+    
+    func changeTitle(newTitle:String) -> NoteTO {
+        return NoteTO(id: id, title: newTitle)
+    }
 }
