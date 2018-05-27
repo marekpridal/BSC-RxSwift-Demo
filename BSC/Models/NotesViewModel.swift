@@ -12,7 +12,7 @@ import RxSwift
 class NotesViewModel {
     
     private let request = Networkig()
-    let notes = BehaviorSubject<[NoteTO]>(value: [])
+    let notes = ReplaySubject<[NoteTO]>.create(bufferSize: 1)
     let error = PublishSubject<Error>()
     private let disposeBag = DisposeBag()
     
@@ -40,19 +40,18 @@ class NotesViewModel {
     }
     
     func delete(note: NoteTO) {
-        request.remove(note: note).subscribe(onNext: {
-            [weak self] success in
+        Observable.zip(notes.asObserver(),request.remove(note: note).asObservable()).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (notes,success) in
             if success {
-                guard var notes = (try? self?.notes.value()), let index = notes?.index(where: { $0.id == note.id }) else {
+                var notes = notes
+                guard let index = notes.index(where: { $0.id == note.id }) else {
                     self?.refreshData()
                     return
                 }
-                notes?.remove(at: index)
-                self?.notes.onNext(notes ?? [])
+                notes.remove(at: index)
+                self?.notes.onNext(notes)
             }
-        }, onError: { [weak self] (error) in
-            self?.error.onNext(error)
+            }, onError: { [weak self] (error) in
+                self?.error.onNext(error)
         }).disposed(by: disposeBag)
     }
-    
 }

@@ -21,9 +21,6 @@ class NotesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.splitViewController?.delegate = self;
-        self.splitViewController?.preferredDisplayMode = .allVisible
 
         setupRefreshControl()
         setupTableViewDataSource()
@@ -124,19 +121,5 @@ class NotesViewController: UIViewController {
             navigationController.modalPresentationStyle = .popover
             self.navigationController?.present(navigationController, animated: true, completion: nil)
         }.disposed(by: disposeBag)
-    }
-}
-
-//MARK: Split view controller
-extension NotesViewController : UISplitViewControllerDelegate {
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        if primaryViewController.content == self {
-            /*
-            if let _  = secondaryViewController.content as? NoteDetailViewController {
-                return true
-            }
-            */
-        }
-        return false
     }
 }

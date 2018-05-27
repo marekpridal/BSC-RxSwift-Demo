@@ -10,3 +10,13 @@ target 'BSC' do
   pod 'Reusable'
 
 end
+
+target 'BSCTests' do
+
+  use_frameworks!
+
+  pod 'RxSwift',    '~> 4.0'
+  pod 'RxCocoa',    '~> 4.0'
+  pod 'Reusable'
+
+end
