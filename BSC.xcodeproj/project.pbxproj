@@ -70,6 +70,7 @@
 		DF3725EB20BAAE3D004F75DC /* BSCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3725EF20BAAE3D004F75DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF3725F820BAAFB1004F75DC /* NotesModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModelTests.swift; sourceTree = "<group>"; };
+		DF3725FD20BAB80D004F75DC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FAD85E4F6CF33870E8029A3A /* Pods-BSC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSC/Pods-BSC.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +117,7 @@
 		DF3725A220B88EFE004F75DC = {
 			isa = PBXGroup;
 			children = (
+				DF3725FD20BAB80D004F75DC /* README.md */,
 				DF3725AD20B88EFE004F75DC /* BSC */,
 				DF3725EC20BAAE3D004F75DC /* BSCTests */,
 				DF3725AC20B88EFE004F75DC /* Products */,
