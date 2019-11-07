@@ -28,7 +28,7 @@ class NoteDetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let note = (try? model.note.value()), note != nil {
+        if let note = (((try? model.note.value()) as NoteTO??)), note != nil {
             model.update(note: note!.changeTitle(newTitle: noteTextView.text))
             print("Saving updated note \(note!)")
         }

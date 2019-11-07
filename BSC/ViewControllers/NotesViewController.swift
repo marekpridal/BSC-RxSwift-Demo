@@ -43,7 +43,7 @@ class NotesViewController: UIViewController {
     private func setupRefreshControl() {
         tableView.refreshControl = refreshControl
         
-        refreshControl.rx.controlEvent(UIControlEvents.valueChanged).asDriver().drive(onNext: {
+        refreshControl.rx.controlEvent(UIControl.Event.valueChanged).asDriver().drive(onNext: {
             [weak self] in
             self?.refreshControl.beginRefreshing()
             self?.model.refreshData()

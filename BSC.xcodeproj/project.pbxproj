@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -277,9 +277,11 @@
 				TargetAttributes = {
 					DF3725AA20B88EFE004F75DC = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1110;
 					};
 					DF3725EA20BAAE3D004F75DC = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1110;
 						TestTargetID = DF3725AA20B88EFE004F75DC;
 					};
 				};
@@ -604,7 +606,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.marekpridal.BSC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -623,7 +625,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.marekpridal.BSC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -643,7 +645,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.marekpridal.BSCTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BSC.app/BSC";
 			};
@@ -664,7 +666,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.marekpridal.BSCTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BSC.app/BSC";
 			};

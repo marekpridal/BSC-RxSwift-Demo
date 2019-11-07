@@ -43,7 +43,7 @@ class NotesViewModel {
         Observable.zip(notes.asObserver(),request.remove(note: note).asObservable()).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (notes,success) in
             if success {
                 var notes = notes
-                guard let index = notes.index(where: { $0.id == note.id }) else {
+                guard let index = notes.firstIndex(where: { $0.id == note.id }) else {
                     self?.refreshData()
                     return
                 }
