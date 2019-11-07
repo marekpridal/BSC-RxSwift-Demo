@@ -11,7 +11,7 @@ import RxSwift
 
 @testable import BSC
 
-class NotesModelTests: XCTestCase {
+final class NotesModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

@@ -11,10 +11,10 @@ import Reusable
 import RxCocoa
 import RxSwift
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
-    @IBOutlet weak var englishLanguageButton: UIButton!
-    @IBOutlet weak var czechLanguageButton: UIButton!
+    @IBOutlet private weak var englishLanguageButton: UIButton!
+    @IBOutlet private weak var czechLanguageButton: UIButton!
     
     private let disposeBag = DisposeBag()
     

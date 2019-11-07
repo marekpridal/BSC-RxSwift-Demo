@@ -11,3 +11,5 @@
 "CzechLanguage" = "Czech language";
 "Save" = "Save";
 "Cancel" = "Cancel";
+"GENERAL_ERROR" = "Something went wrong, try again";
+"ALERT_TITLE" = "Warning";

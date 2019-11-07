@@ -10,27 +10,30 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class NoteDetailViewModel {
-    
-    let note = BehaviorSubject<NoteTO?>(value: nil)
+final class NoteDetailViewModel {
+    let note = BehaviorRelay<NoteTO?>(value: nil)
     let error = PublishSubject<Error>()
+
     private let disposeBag = DisposeBag()
-    private let request = Networkig()
+    private let api: Networkig
+    
+    init(api: Networkig = Networkig()) {
+        self.api = api
+    }
     
     func update(note: NoteTO) {
-        request.update(note: note).subscribe(onNext: { (_) in
-            NotificationCenter.default.post(name: NSNotification.Name(identifier.update), object: nil)
+        api.update(note: note).subscribe(onNext: { (_) in
+            NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
         }, onError: { [weak self] (error) in
             self?.error.onNext(error)
         }).disposed(by: disposeBag)
     }
     
     func new(note: NoteTO) {
-        request.post(note: note).subscribe(onNext: { (_) in
-            NotificationCenter.default.post(name: NSNotification.Name(identifier.update), object: nil)
+        api.post(note: note).subscribe(onNext: { (_) in
+            NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
         }, onError: { [weak self] (error) in
             self?.error.onNext(error)
         }).disposed(by: disposeBag)
     }
-    
 }

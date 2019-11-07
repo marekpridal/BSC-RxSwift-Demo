@@ -10,9 +10,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class NotesViewController: UIViewController {
+final class NotesViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     private let refreshControl = UIRefreshControl()
     
@@ -55,7 +55,7 @@ class NotesViewController: UIViewController {
             self?.refreshControl.endRefreshing()
         }.disposed(by: disposeBag)
         
-        model.notes.bind(to: tableView.rx.items(cellIdentifier: "noteCell")) {
+        model.notes.bind(to: tableView.rx.items(cellIdentifier: Identifier.noteCell)) {
             row, note, cell in
             cell.textLabel?.text = note.title
         }.disposed(by: disposeBag)
@@ -64,7 +64,7 @@ class NotesViewController: UIViewController {
     private func bindModelSelection() {
         tableView.rx.modelSelected(NoteTO.self).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (note) in
             let noteDetailVC = NoteDetailViewController.instantiate()
-            noteDetailVC.model.note.onNext(note)
+            noteDetailVC.model.note.accept(note)
             self?.bindNoteError(model: noteDetailVC.model)
             self?.navigationController?.pushViewController(noteDetailVC, animated: true)
         }).disposed(by: disposeBag)
@@ -80,8 +80,8 @@ class NotesViewController: UIViewController {
     private func bindError() {
         model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: {
             error in
-            let alertVC = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }).disposed(by: disposeBag)
     }
@@ -89,7 +89,7 @@ class NotesViewController: UIViewController {
     private func setupAddNewNote() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
         navigationItem.rightBarButtonItem?.rx.tap.bind { [weak self] in
-            guard let `self` = self else { return }
+            guard let self = self else { return }
             let navigationController = UINavigationController()
             let noteDetailVC = NoteDetailViewController.instantiate()
             self.bindNoteError(model: noteDetailVC.model)
@@ -104,8 +104,8 @@ class NotesViewController: UIViewController {
 
     private func bindNoteError(model: NoteDetailViewModel) {
         model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (error) in
-            let alertVC = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
             self?.navigationController?.present(alertVC, animated: true, completion: nil)
         }).disposed(by: disposeBag)
     }
@@ -114,7 +114,7 @@ class NotesViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings".localized, style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem?.rx.tap.bind {
             [weak self] in
-            guard let `self` = self else { return }
+            guard let self = self else { return }
             let navigationController = UINavigationController()
             let settingsVC = SettingsViewController.instantiate()
             navigationController.viewControllers = [settingsVC]

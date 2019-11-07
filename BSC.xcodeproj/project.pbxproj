@@ -29,6 +29,7 @@
 		DF3725FA20BAB04D004F75DC /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725C820B88FF7004F75DC /* Networking.swift */; };
 		DF3725FB20BAB057004F75DC /* NoteTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725CA20B890A2004F75DC /* NoteTO.swift */; };
 		DF3725FC20BAB05C004F75DC /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D620B9B5C5004F75DC /* Identifier.swift */; };
+		DFC2727C237470E10093CA08 /* GeneralError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2727B237470E10093CA08 /* GeneralError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		DF3725EF20BAAE3D004F75DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF3725F820BAAFB1004F75DC /* NotesModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModelTests.swift; sourceTree = "<group>"; };
 		DF3725FD20BAB80D004F75DC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DFC2727B237470E10093CA08 /* GeneralError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
 		FAD85E4F6CF33870E8029A3A /* Pods-BSC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSC/Pods-BSC.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 		DF3725AD20B88EFE004F75DC /* BSC */ = {
 			isa = PBXGroup;
 			children = (
+				DFC2727A237470CD0093CA08 /* Custom Errors */,
 				DF3725E620B9C7BA004F75DC /* Localizable */,
 				DF3725C520B88F6C004F75DC /* Support */,
 				DF3725C420B88F54004F75DC /* Storyboards */,
@@ -221,6 +224,14 @@
 				DF3725F820BAAFB1004F75DC /* NotesModelTests.swift */,
 			);
 			path = BSCTests;
+			sourceTree = "<group>";
+		};
+		DFC2727A237470CD0093CA08 /* Custom Errors */ = {
+			isa = PBXGroup;
+			children = (
+				DFC2727B237470E10093CA08 /* GeneralError.swift */,
+			);
+			path = "Custom Errors";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,6 +425,7 @@
 				DF3725D720B9B5C5004F75DC /* Identifier.swift in Sources */,
 				DF3725D520B9B21A004F75DC /* NoteDetailViewModel.swift in Sources */,
 				DF3725D920B9C19C004F75DC /* SettingsViewController.swift in Sources */,
+				DFC2727C237470E10093CA08 /* GeneralError.swift in Sources */,
 				DF3725D320B9B1F3004F75DC /* NoteDetailViewController.swift in Sources */,
 				DF3725CF20B89970004F75DC /* NotesViewModel.swift in Sources */,
 				DF3725CB20B890A2004F75DC /* NoteTO.swift in Sources */,

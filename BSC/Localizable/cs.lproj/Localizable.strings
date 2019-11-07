@@ -11,3 +11,5 @@
 "CzechLanguage" = "Česky";
 "Save" = "Uložit";
 "Cancel" = "Zrušit";
+"GENERAL_ERROR" = "Něco se pokazilo, zkuste to prosím znovu.";
+"ALERT_TITLE" = "Upozornění";

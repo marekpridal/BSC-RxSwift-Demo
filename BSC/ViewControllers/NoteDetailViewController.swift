@@ -11,12 +11,12 @@ import RxSwift
 import RxCocoa
 import Reusable
 
-class NoteDetailViewController: UIViewController {
+final class NoteDetailViewController: UIViewController {
 
     let model = NoteDetailViewModel()
     private let disposeBag = DisposeBag()
     
-    @IBOutlet weak var noteTextView: UITextView!
+    @IBOutlet private weak var noteTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +28,20 @@ class NoteDetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let note = (((try? model.note.value()) as NoteTO??)), note != nil {
-            model.update(note: note!.changeTitle(newTitle: noteTextView.text))
-            print("Saving updated note \(note!)")
+        if let note = model.note.value {
+            model.update(note: note.changeTitle(newTitle: noteTextView.text))
+            print("Saving updated note \(note)")
         }
         view.endEditing(true)
+    }
+    
+    private func setupBinding() {
+        model.note.map { $0?.title }.distinctUntilChanged().bind(to: noteTextView.rx.text).disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem?.rx.tap.bind { [weak self] in
+//            self?.model.new(note: .init(id: nil, title: self?.noteTextView.text))
+        }
+        .disposed(by: disposeBag)
     }
     
     private func setupNoteBinding() {
@@ -42,7 +51,7 @@ class NoteDetailViewController: UIViewController {
     private func setupSaveBinding() {
         navigationItem.rightBarButtonItem?.rx.tap.bind {
             [weak self] in
-            guard let `self` = self else { return }
+            guard let self = self else { return }
             let newNote = NoteTO(id: nil, title: self.noteTextView.text)
             self.model.new(note: newNote)
             print("Saving new note \(newNote)")

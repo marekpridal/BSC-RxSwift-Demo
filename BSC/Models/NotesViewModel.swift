@@ -7,20 +7,24 @@
 //
 
 import Foundation
+import RxRelay
 import RxSwift
 
-class NotesViewModel {
-    
-    private let request = Networkig()
-    let notes = ReplaySubject<[NoteTO]>.create(bufferSize: 1)
+final class NotesViewModel {
+    let notes = BehaviorRelay<[NoteTO]>(value: [])
     let error = PublishSubject<Error>()
-    private let disposeBag = DisposeBag()
     
-    init() {
+    private let disposeBag = DisposeBag()
+    private let api: Networkig
+    
+    init(api: Networkig = Networkig()) {
+        self.api = api
+        
         refreshData()
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(identifier.update), object: nil, queue: nil) { [weak self] (_) in
+        NotificationCenter.default.rx.notification(Notification.Name.init(Identifier.update)).subscribe { [weak self] (_) in
             self?.refreshData()
         }
+        .disposed(by: disposeBag)
     }
     
     deinit {
@@ -28,30 +32,23 @@ class NotesViewModel {
     }
     
     func refreshData() {
-        request.getNotes().observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (notes) in
-            self?.notes.onNext(notes)
-        }, onError: { [weak self] (error) in
+        api.getNotes().catchError({ [weak self] (error) -> Observable<[NoteTO]> in
             self?.error.onNext(error)
-        }, onCompleted: { [weak self] in
-            self?.notes.onCompleted()
-            print("Completed")
-        }).disposed(by: disposeBag)
-        
+            return Observable.just([])
+        }).bind(to: notes).disposed(by: disposeBag)
     }
     
     func delete(note: NoteTO) {
-        Observable.zip(notes.asObserver(),request.remove(note: note).asObservable()).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (notes,success) in
-            if success {
-                var notes = notes
-                guard let index = notes.firstIndex(where: { $0.id == note.id }) else {
-                    self?.refreshData()
-                    return
-                }
-                notes.remove(at: index)
-                self?.notes.onNext(notes)
+        api.remove(note: note).compactMap { [weak self] noteDeleted -> [NoteTO]? in
+            guard noteDeleted else {
+                self?.error.onNext(GeneralError())
+                return nil
             }
-            }, onError: { [weak self] (error) in
-                self?.error.onNext(error)
-        }).disposed(by: disposeBag)
+            var notes = self?.notes.value
+            notes?.removeAll(where: { $0.id == note.id })
+            return notes
+        }
+        .bind(to: notes)
+        .disposed(by: disposeBag)
     }
 }

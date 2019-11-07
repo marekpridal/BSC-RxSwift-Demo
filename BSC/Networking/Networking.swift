@@ -9,13 +9,17 @@
 import Foundation
 import RxSwift
 
-struct Networkig {
+final class Networkig {
+    private let endpoint = URL(string: "http://private-9aad-note10.apiary-mock.com/notes")!
+    
     func getNotes() -> Observable<[NoteTO]> {
-        return Observable<[NoteTO]>.create({
-            observer in
-            let url = URL(string: "https://private-anon-b8bab08cff-note10.apiary-mock.com/notes")!
+        return Observable<[NoteTO]>.create({ [weak self] observer in
+            guard let self = self else {
+                observer.onError(GeneralError())
+                return Disposables.create()
+            }
             
-            let request = URLRequest(url: url)
+            let request = URLRequest(url: self.endpoint)
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if (response as? HTTPURLResponse)?.statusCode == 200, let data = data {
@@ -28,23 +32,23 @@ struct Networkig {
                 } else if let error = error {
                     observer.onError(error)
                 } else {
-                    observer.onCompleted()
+                    observer.onError(GeneralError())
                 }
             }
             task.resume()
             
-            return Disposables.create {
-                task.cancel()
-            }
+            return Disposables.create { task.cancel() }
         })
     }
     
     func post(note:NoteTO) -> Observable<NoteTO> {
-        return Observable<NoteTO>.create({
-            observer in
+        return Observable<NoteTO>.create({ [weak self] observer in
+            guard let self = self else {
+                observer.onError(GeneralError())
+                return Disposables.create()
+            }
             
-            let url = URL(string: "https://private-anon-b8bab08cff-note10.apiary-mock.com/notes")!
-            var request = URLRequest(url: url)
+            var request = URLRequest(url: self.endpoint)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             
@@ -61,7 +65,7 @@ struct Networkig {
                     } else if let error = error {
                         observer.onError(error)
                     } else {
-                        observer.onCompleted()
+                        observer.onError(GeneralError())
                     }
                 }
                 task.resume()
@@ -77,11 +81,13 @@ struct Networkig {
     }
     
     func update(note:NoteTO) -> Observable<NoteTO> {
-        return Observable<NoteTO>.create({
-            observer in
-            
-            let url = URL(string: "https://private-anon-b8bab08cff-note10.apiary-mock.com/notes/\(note.id!)")!
-            var request = URLRequest(url: url)
+        return Observable<NoteTO>.create({ [weak self] observer in
+            guard let self = self, let noteId = note.id else {
+                observer.onError(GeneralError())
+                return Disposables.create()
+            }
+        
+            var request = URLRequest(url: self.endpoint.appendingPathComponent("\(noteId)"))
             request.httpMethod = "PUT"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             
@@ -98,7 +104,7 @@ struct Networkig {
                     } else if let error = error {
                         observer.onError(error)
                     } else {
-                        observer.onCompleted()
+                        observer.onError(GeneralError())
                     }
                 }
                 task.resume()
@@ -114,11 +120,13 @@ struct Networkig {
     }
     
     func remove(note:NoteTO) -> Observable<Bool> {
-        return Observable<Bool>.create({
-            observer in
+        return Observable<Bool>.create({ [weak self] observer in
+            guard let self = self, let noteId = note.id else {
+                observer.onError(GeneralError())
+                return Disposables.create()
+            }
             
-            let url = URL(string: "https://private-anon-b8bab08cff-note10.apiary-mock.com/notes/\(note.id!)")!
-            var request = URLRequest(url: url)
+            var request = URLRequest(url: self.endpoint.appendingPathComponent("\(noteId)"))
             request.httpMethod = "DELETE"
             
             let task = URLSession.shared.dataTask(with: request) { _, response, error in
@@ -127,7 +135,7 @@ struct Networkig {
                 } else if let error = error {
                     observer.onError(error)
                 } else {
-                    observer.onCompleted()
+                    observer.onError(GeneralError())
                 }
             }
             task.resume()
