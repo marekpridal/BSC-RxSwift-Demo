@@ -6,12 +6,11 @@
 //  Copyright © 2018 Marek Pridal. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+import UIKit
 
 final class NotesViewController: UIViewController {
-
     @IBOutlet private weak var tableView: UITableView!
 
     private let refreshControl = UIRefreshControl()
@@ -34,7 +33,7 @@ final class NotesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let selectedRows = tableView.indexPathsForSelectedRows {
-            selectedRows.forEach { (indexPath) in
+            selectedRows.forEach { indexPath in
                 tableView.deselectRow(at: indexPath, animated: true)
             }
         }
@@ -51,18 +50,17 @@ final class NotesViewController: UIViewController {
     }
 
     private func setupTableViewDataSource() {
-        model.notes.observeOn(MainScheduler.asyncInstance).bind { [weak self] (_) in
+        model.notes.observeOn(MainScheduler.asyncInstance).bind { [weak self] _ in
             self?.refreshControl.endRefreshing()
         }.disposed(by: disposeBag)
 
-        model.notes.bind(to: tableView.rx.items(cellIdentifier: Identifier.noteCell)) {
-            _, note, cell in
+        model.notes.bind(to: tableView.rx.items(cellIdentifier: Identifier.noteCell)) { _, note, cell in
             cell.textLabel?.text = note.title
         }.disposed(by: disposeBag)
     }
 
     private func bindModelSelection() {
-        tableView.rx.modelSelected(NoteTO.self).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (note) in
+        tableView.rx.modelSelected(NoteTO.self).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] note in
             let noteDetailVC = NoteDetailViewController.instantiate()
             noteDetailVC.model.note.accept(note)
             self?.bindNoteError(model: noteDetailVC.model)
@@ -71,15 +69,14 @@ final class NotesViewController: UIViewController {
     }
 
     private func bindModelDelete() {
-        tableView.rx.modelDeleted(NoteTO.self).subscribe(onNext: { [weak self] (note) in
+        tableView.rx.modelDeleted(NoteTO.self).subscribe(onNext: { [weak self] note in
             print("Deleted note \(note)")
             self?.model.delete(note: note)
         }).disposed(by: disposeBag)
     }
 
     private func bindError() {
-        model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: {
-            error in
+        model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { error in
             let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
@@ -103,7 +100,7 @@ final class NotesViewController: UIViewController {
     }
 
     private func bindNoteError(model: NoteDetailViewModel) {
-        model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (error) in
+        model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] error in
             let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
             self?.navigationController?.present(alertVC, animated: true, completion: nil)

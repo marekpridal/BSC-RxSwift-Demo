@@ -6,13 +6,12 @@
 //  Copyright © 2018 Marek Pridal. All rights reserved.
 //
 
-import UIKit
-import RxSwift
-import RxCocoa
 import Reusable
+import RxCocoa
+import RxSwift
+import UIKit
 
 final class NoteDetailViewController: UIViewController {
-
     let model = NoteDetailViewModel()
     private let disposeBag = DisposeBag()
 

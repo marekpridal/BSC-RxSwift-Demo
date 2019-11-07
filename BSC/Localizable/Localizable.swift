@@ -8,10 +8,9 @@
 
 import UIKit
 
-private let appleLanguagesKey = "AppleLanguages"
+private let kAppleLanguagesKey = "AppleLanguages"
 
 enum Language: String {
-
     case english = "en"
     case czech = "cs"
 
@@ -24,7 +23,7 @@ enum Language: String {
 
     static var language: Language {
         get {
-            if let languageCode = UserDefaults.standard.string(forKey: appleLanguagesKey),
+            if let languageCode = UserDefaults.standard.string(forKey: kAppleLanguagesKey),
                 let language = Language(rawValue: languageCode) {
                 return language
             } else {
@@ -47,7 +46,7 @@ enum Language: String {
                 return
             }
 
-            UserDefaults.standard.set([newValue.rawValue], forKey: appleLanguagesKey)
+            UserDefaults.standard.set([newValue.rawValue], forKey: kAppleLanguagesKey)
             UserDefaults.standard.synchronize()
 
             UIView.appearance().semanticContentAttribute = newValue.semantic

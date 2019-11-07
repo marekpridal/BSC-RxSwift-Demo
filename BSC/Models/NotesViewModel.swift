@@ -21,7 +21,7 @@ final class NotesViewModel {
         self.api = api
 
         refreshData()
-        NotificationCenter.default.rx.notification(Notification.Name.init(Identifier.update)).subscribe { [weak self] (_) in
+        NotificationCenter.default.rx.notification(Notification.Name.init(Identifier.update)).subscribe { [weak self] _ in
             self?.refreshData()
         }
         .disposed(by: disposeBag)
@@ -32,7 +32,7 @@ final class NotesViewModel {
     }
 
     func refreshData() {
-        api.getNotes().catchError({ [weak self] (error) -> Observable<[NoteTO]> in
+        api.getNotes().catchError({ [weak self] error -> Observable<[NoteTO]> in
             self?.error.onNext(error)
             return Observable.just([])
         }).bind(to: notes).disposed(by: disposeBag)

@@ -6,13 +6,12 @@
 //  Copyright © 2018 Marek Pridal. All rights reserved.
 //
 
-import XCTest
 import RxSwift
+import XCTest
 
 @testable import BSC
 
 final class NotesModelTests: XCTestCase {
-
     override func setUp() {
         super.setUp()
     }

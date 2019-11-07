@@ -6,13 +6,12 @@
 //  Copyright © 2018 Marek Pridal. All rights reserved.
 //
 
-import UIKit
 import Reusable
 import RxCocoa
 import RxSwift
+import UIKit
 
 final class SettingsViewController: UIViewController {
-
     @IBOutlet private weak var englishLanguageButton: UIButton!
     @IBOutlet private weak var czechLanguageButton: UIButton!
 
@@ -30,7 +29,6 @@ final class SettingsViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss".localized, style: .done, target: nil, action: nil)
         navigationItem.leftBarButtonItem?.rx.tap.bind { [weak self] in self?.dismiss(animated: true, completion: nil) }.disposed(by: disposeBag)
     }
-
 }
 
 extension SettingsViewController: StoryboardSceneBased {

@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import RxSwift
 import RxCocoa
+import RxSwift
 
 final class NoteDetailViewModel {
     let note = BehaviorRelay<NoteTO?>(value: nil)
@@ -22,17 +22,17 @@ final class NoteDetailViewModel {
     }
 
     func update(note: NoteTO) {
-        api.update(note: note).subscribe(onNext: { (_) in
+        api.update(note: note).subscribe(onNext: { _ in
             NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
-        }, onError: { [weak self] (error) in
+        }, onError: { [weak self] error in
             self?.error.onNext(error)
         }).disposed(by: disposeBag)
     }
 
     func new(note: NoteTO) {
-        api.post(note: note).subscribe(onNext: { (_) in
+        api.post(note: note).subscribe(onNext: { _ in
             NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
-        }, onError: { [weak self] (error) in
+        }, onError: { [weak self] error in
             self?.error.onNext(error)
         }).disposed(by: disposeBag)
     }
