@@ -35,15 +35,6 @@ final class NoteDetailViewController: UIViewController {
         view.endEditing(true)
     }
 
-    private func setupBinding() {
-        model.note.map { $0?.title }.distinctUntilChanged().bind(to: noteTextView.rx.text).disposed(by: disposeBag)
-
-        navigationItem.rightBarButtonItem?.rx.tap.bind { [weak self] in
-//            self?.model.new(note: .init(id: nil, title: self?.noteTextView.text))
-        }
-        .disposed(by: disposeBag)
-    }
-
     private func setupNoteBinding() {
         model.note.map { $0?.title }.bind(to: noteTextView.rx.text).disposed(by: disposeBag)
     }
