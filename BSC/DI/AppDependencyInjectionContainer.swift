@@ -21,7 +21,8 @@ final class AppDependencyInjectionContainer {
     }
 
     private func register() {
-        container.register(Networking.self, factory: { _ in Networking() })
+        container.register(Api.self, factory: { _ in Networking() })
+//        container.register(Api.self, factory: { _ in MockNetworking() })
 
         container.autoregister(NotesViewModel.self, initializer: NotesViewModel.init)
         container.autoregister(NoteDetailViewModel.self, initializer: NoteDetailViewModel.init)

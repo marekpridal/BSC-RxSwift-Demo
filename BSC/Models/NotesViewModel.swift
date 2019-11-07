@@ -22,9 +22,9 @@ final class NotesViewModel {
     weak var delegate: NotesViewModelDelegate?
 
     private let disposeBag = DisposeBag()
-    private let api: Networking
+    private let api: Api
 
-    init(api: Networking = Networking()) {
+    init(api: Api) {
         self.api = api
 
         refreshData()

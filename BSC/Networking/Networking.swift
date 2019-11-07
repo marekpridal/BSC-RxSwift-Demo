@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-final class Networking {
+final class Networking: Api {
     private let endpoint = URL(string: "http://private-9aad-note10.apiary-mock.com/notes")!
 
     func getNotes() -> Observable<[Note]> {
