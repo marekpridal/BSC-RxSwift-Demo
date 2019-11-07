@@ -12,7 +12,7 @@ import RxSwift
 import UIKit
 
 final class NoteDetailViewController: UIViewController {
-    let model = NoteDetailViewModel()
+    let viewModel = NoteDetailViewModel()
     private let disposeBag = DisposeBag()
 
     @IBOutlet private weak var noteTextView: UITextView!
@@ -27,15 +27,15 @@ final class NoteDetailViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let note = model.note.value {
-            model.update(note: note.changeTitle(newTitle: noteTextView.text))
+        if let note = viewModel.note.value {
+            viewModel.update(note: note.changeTitle(newTitle: noteTextView.text))
             print("Saving updated note \(note)")
         }
         view.endEditing(true)
     }
 
     private func setupNoteBinding() {
-        model.note.map { $0?.title }.bind(to: noteTextView.rx.text).disposed(by: disposeBag)
+        viewModel.note.map { $0?.title }.bind(to: noteTextView.rx.text).disposed(by: disposeBag)
     }
 
     private func setupSaveBinding() {
@@ -43,9 +43,8 @@ final class NoteDetailViewController: UIViewController {
             [weak self] in
             guard let self = self else { return }
             let newNote = Note(id: nil, title: self.noteTextView.text)
-            self.model.new(note: newNote)
+            self.viewModel.new(note: newNote)
             print("Saving new note \(newNote)")
-            self.dismiss(animated: true, completion: nil)
         }.disposed(by: disposeBag)
     }
 }

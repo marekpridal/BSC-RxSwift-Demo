@@ -10,9 +10,16 @@ import Foundation
 import RxRelay
 import RxSwift
 
+protocol NotesViewModelDelegate: class {
+    func showNoteDetail(note: Note, errorHandler: @escaping (Error) -> Void)
+    func showNewNoteForm(errorHandler: @escaping (Error) -> Void)
+}
+
 final class NotesViewModel {
     let notes = BehaviorRelay<[Note]>(value: [])
     let error = PublishSubject<Error>()
+
+    weak var delegate: NotesViewModelDelegate?
 
     private let disposeBag = DisposeBag()
     private let api: Networkig

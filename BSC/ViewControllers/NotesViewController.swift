@@ -6,6 +6,7 @@
 //  Copyright © 2018 Marek Pridal. All rights reserved.
 //
 
+import Reusable
 import RxCocoa
 import RxSwift
 import UIKit
@@ -15,7 +16,7 @@ final class NotesViewController: UIViewController {
 
     private let refreshControl = UIRefreshControl()
 
-    let model = NotesViewModel()
+    let viewModel = NotesViewModel()
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -44,38 +45,43 @@ final class NotesViewController: UIViewController {
         refreshControl.rx.controlEvent(UIControl.Event.valueChanged).asDriver().drive(onNext: {
             [weak self] in
             self?.refreshControl.beginRefreshing()
-            self?.model.refreshData()
+            self?.viewModel.refreshData()
         }).disposed(by: disposeBag)
     }
 
     private func setupTableViewDataSource() {
-        model.notes.observeOn(MainScheduler.asyncInstance).bind { [weak self] _ in
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Identifier.noteCell)
+
+        viewModel.notes.observeOn(MainScheduler.asyncInstance).bind { [weak self] _ in
             self?.refreshControl.endRefreshing()
         }.disposed(by: disposeBag)
 
-        model.notes.bind(to: tableView.rx.items(cellIdentifier: Identifier.noteCell)) { _, note, cell in
+        viewModel.notes.bind(to: tableView.rx.items(cellIdentifier: Identifier.noteCell)) { _, note, cell in
             cell.textLabel?.text = note.title
         }.disposed(by: disposeBag)
     }
 
     private func bindModelSelection() {
         tableView.rx.modelSelected(Note.self).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] note in
-            let noteDetailVC = NoteDetailViewController.instantiate()
-            noteDetailVC.model.note.accept(note)
-            self?.bindNoteError(model: noteDetailVC.model)
-            self?.navigationController?.pushViewController(noteDetailVC, animated: true)
+            self?.viewModel.delegate?.showNoteDetail(note: note, errorHandler: { error in
+                DispatchQueue.main.async { [weak self] in
+                    let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
+                    self?.navigationController?.present(alertVC, animated: true, completion: nil)
+                }
+            })
         }).disposed(by: disposeBag)
     }
 
     private func bindModelDelete() {
         tableView.rx.modelDeleted(Note.self).subscribe(onNext: { [weak self] note in
             print("Deleted note \(note)")
-            self?.model.delete(note: note)
+            self?.viewModel.delete(note: note)
         }).disposed(by: disposeBag)
     }
 
     private func bindError() {
-        model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] error in
+        viewModel.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] error in
             let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
             self?.present(alertVC, animated: true, completion: nil)
@@ -85,24 +91,17 @@ final class NotesViewController: UIViewController {
     private func setupAddNewNote() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
         navigationItem.rightBarButtonItem?.rx.tap.bind { [weak self] in
-            guard let self = self else { return }
-            let navigationController = UINavigationController()
-            let noteDetailVC = NoteDetailViewController.instantiate()
-            self.bindNoteError(model: noteDetailVC.model)
-            noteDetailVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save".localized, style: .done, target: nil, action: nil)
-            noteDetailVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel".localized, style: .plain, target: nil, action: nil)
-            noteDetailVC.navigationItem.leftBarButtonItem?.rx.tap.bind { noteDetailVC.dismiss(animated: true, completion: nil) }.disposed(by: self.disposeBag)
-            navigationController.viewControllers = [noteDetailVC]
-            navigationController.modalPresentationStyle = .popover
-            self.navigationController?.present(navigationController, animated: true, completion: nil)
+            self?.viewModel.delegate?.showNewNoteForm(errorHandler: { error in
+                DispatchQueue.main.async { [weak self] in
+                    let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
+                    self?.navigationController?.present(alertVC, animated: true, completion: nil)
+                }
+            })
         }.disposed(by: disposeBag)
     }
+}
 
-    private func bindNoteError(model: NoteDetailViewModel) {
-        model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] error in
-            let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
-            self?.navigationController?.present(alertVC, animated: true, completion: nil)
-        }).disposed(by: disposeBag)
-    }
+extension NotesViewController: StoryboardSceneBased {
+    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 }

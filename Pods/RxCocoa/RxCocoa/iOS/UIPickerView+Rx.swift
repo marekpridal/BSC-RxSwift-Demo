@@ -70,12 +70,12 @@
                     return Observable.empty()
                 }
 
-                let model: [T] = try (0 ..< view.numberOfComponents).map { component in
+                let viewModel: [T] = try (0 ..< view.numberOfComponents).map { component in
                     let row = view.selectedRow(inComponent: component)
                     return try view.rx.model(at: IndexPath(row: row, section: component))
                 }
 
-                return Observable.just(model)
+                return Observable.just(viewModel)
             }
             
             return ControlEvent(events: source)

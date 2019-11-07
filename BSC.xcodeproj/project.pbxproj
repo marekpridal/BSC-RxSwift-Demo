@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9A724F9234B9EB95B5CB2D5A /* Pods_BSCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42E0AC579C2D4C25B38EFFC9 /* Pods_BSCTests.framework */; };
 		B920272438E3E4334C767B13 /* Pods_BSC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4632B7FE4C8B4F11D29EE18 /* Pods_BSC.framework */; };
+		DF1BA11323748CFF00CC32DB /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1BA11223748CFF00CC32DB /* ApplicationCoordinator.swift */; };
 		DF3725AF20B88EFE004F75DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725AE20B88EFE004F75DC /* AppDelegate.swift */; };
 		DF3725B420B88EFE004F75DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF3725B220B88EFE004F75DC /* Main.storyboard */; };
 		DF3725B620B88EFF004F75DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF3725B520B88EFF004F75DC /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		86FEFF01D283CE983755FAF9 /* Pods-BSCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSCTests/Pods-BSCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A4632B7FE4C8B4F11D29EE18 /* Pods_BSC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BSC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC05A50D08D07312B8B2E8A3 /* Pods-BSC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSC/Pods-BSC.debug.xcconfig"; sourceTree = "<group>"; };
+		DF1BA11223748CFF00CC32DB /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		DF3725AB20B88EFE004F75DC /* BSC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF3725AE20B88EFE004F75DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF3725B320B88EFE004F75DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -114,6 +116,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		DF1BA11123748CED00CC32DB /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				DF1BA11223748CFF00CC32DB /* ApplicationCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 		DF3725A220B88EFE004F75DC = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +148,7 @@
 		DF3725AD20B88EFE004F75DC /* BSC */ = {
 			isa = PBXGroup;
 			children = (
+				DF1BA11123748CED00CC32DB /* Coordinators */,
 				DFC2727A237470CD0093CA08 /* Custom Errors */,
 				DF3725E620B9C7BA004F75DC /* Localizable */,
 				DF3725C520B88F6C004F75DC /* Support */,
@@ -436,6 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF1BA11323748CFF00CC32DB /* ApplicationCoordinator.swift in Sources */,
 				DF3725DB20B9C270004F75DC /* Localizable.swift in Sources */,
 				DF3725CD20B89938004F75DC /* NotesViewController.swift in Sources */,
 				DF3725D720B9B5C5004F75DC /* Identifier.swift in Sources */,

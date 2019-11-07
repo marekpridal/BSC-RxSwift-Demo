@@ -10,9 +10,15 @@ import Foundation
 import RxCocoa
 import RxSwift
 
+protocol NoteDetailViewModelDelegate: class {
+    func noteDetailDidFinish()
+}
+
 final class NoteDetailViewModel {
     let note = BehaviorRelay<Note?>(value: nil)
-    let error = PublishSubject<Error>()
+    var errorHandler: ((Error) -> Void)?
+
+    weak var delegate: NoteDetailViewModelDelegate?
 
     private let disposeBag = DisposeBag()
     private let api: Networkig
@@ -25,15 +31,17 @@ final class NoteDetailViewModel {
         api.update(note: note).subscribe(onNext: { _ in
             NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
         }, onError: { [weak self] error in
-            self?.error.onNext(error)
+            self?.errorHandler?(error)
         }).disposed(by: disposeBag)
     }
 
     func new(note: Note) {
-        api.post(note: note).subscribe(onNext: { _ in
+        api.post(note: note).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] _ in
             NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
+            self?.delegate?.noteDetailDidFinish()
         }, onError: { [weak self] error in
-            self?.error.onNext(error)
+            self?.delegate?.noteDetailDidFinish()
+            self?.errorHandler?(error)
         }).disposed(by: disposeBag)
     }
 }
