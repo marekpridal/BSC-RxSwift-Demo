@@ -42,7 +42,7 @@ final class NoteDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem?.rx.tap.bind {
             [weak self] in
             guard let self = self else { return }
-            let newNote = NoteTO(id: nil, title: self.noteTextView.text)
+            let newNote = Note(id: nil, title: self.noteTextView.text)
             self.model.new(note: newNote)
             print("Saving new note \(newNote)")
             self.dismiss(animated: true, completion: nil)

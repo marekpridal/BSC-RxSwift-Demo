@@ -12,8 +12,8 @@ import RxSwift
 final class Networkig {
     private let endpoint = URL(string: "http://private-9aad-note10.apiary-mock.com/notes")!
 
-    func getNotes() -> Observable<[NoteTO]> {
-        return Observable<[NoteTO]>.create({ [weak self] observer in
+    func getNotes() -> Observable<[Note]> {
+        return Observable<[Note]>.create({ [weak self] observer in
             guard let self = self else {
                 observer.onError(GeneralError())
                 return Disposables.create()
@@ -24,7 +24,7 @@ final class Networkig {
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if (response as? HTTPURLResponse)?.statusCode == 200, let data = data {
                     do {
-                        let responseObject = try JSONDecoder().decode([NoteTO].self, from: data)
+                        let responseObject = try JSONDecoder().decode([Note].self, from: data)
                         observer.onNext(responseObject)
                     } catch let e {
                         observer.onError(e)
@@ -41,8 +41,8 @@ final class Networkig {
         })
     }
 
-    func post(note: NoteTO) -> Observable<NoteTO> {
-        return Observable<NoteTO>.create({ [weak self] observer in
+    func post(note: Note) -> Observable<Note> {
+        return Observable<Note>.create({ [weak self] observer in
             guard let self = self else {
                 observer.onError(GeneralError())
                 return Disposables.create()
@@ -57,7 +57,7 @@ final class Networkig {
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
                     if (response as? HTTPURLResponse)?.statusCode == 201, let data = data {
                         do {
-                            let responseObject = try JSONDecoder().decode(NoteTO.self, from: data)
+                            let responseObject = try JSONDecoder().decode(Note.self, from: data)
                             observer.onNext(responseObject)
                         } catch let e {
                             observer.onError(e)
@@ -80,8 +80,8 @@ final class Networkig {
         })
     }
 
-    func update(note: NoteTO) -> Observable<NoteTO> {
-        return Observable<NoteTO>.create({ [weak self] observer in
+    func update(note: Note) -> Observable<Note> {
+        return Observable<Note>.create({ [weak self] observer in
             guard let self = self, let noteId = note.id else {
                 observer.onError(GeneralError())
                 return Disposables.create()
@@ -96,7 +96,7 @@ final class Networkig {
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
                     if (response as? HTTPURLResponse)?.statusCode == 201, let data = data {
                         do {
-                            let responseObject = try JSONDecoder().decode(NoteTO.self, from: data)
+                            let responseObject = try JSONDecoder().decode(Note.self, from: data)
                             observer.onNext(responseObject)
                         } catch let e {
                             observer.onError(e)
@@ -119,7 +119,7 @@ final class Networkig {
         })
     }
 
-    func remove(note: NoteTO) -> Observable<Bool> {
+    func remove(note: Note) -> Observable<Bool> {
         return Observable<Bool>.create({ [weak self] observer in
             guard let self = self, let noteId = note.id else {
                 observer.onError(GeneralError())

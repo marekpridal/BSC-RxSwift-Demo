@@ -1,5 +1,5 @@
 //
-//  NoteTO.swift
+//  Note.swift
 //  BSC
 //
 //  Created by Marek Pridal on 25.05.18.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct NoteTO: Codable {
+struct Note: Codable {
     let id: Int?
     let title: String
 
-    func changeTitle(newTitle: String) -> NoteTO {
-        return NoteTO(id: id, title: newTitle)
+    func changeTitle(newTitle: String) -> Note {
+        return Note(id: id, title: newTitle)
     }
 }

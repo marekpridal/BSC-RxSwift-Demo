@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class NoteDetailViewModel {
-    let note = BehaviorRelay<NoteTO?>(value: nil)
+    let note = BehaviorRelay<Note?>(value: nil)
     let error = PublishSubject<Error>()
 
     private let disposeBag = DisposeBag()
@@ -21,7 +21,7 @@ final class NoteDetailViewModel {
         self.api = api
     }
 
-    func update(note: NoteTO) {
+    func update(note: Note) {
         api.update(note: note).subscribe(onNext: { _ in
             NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
         }, onError: { [weak self] error in
@@ -29,7 +29,7 @@ final class NoteDetailViewModel {
         }).disposed(by: disposeBag)
     }
 
-    func new(note: NoteTO) {
+    func new(note: Note) {
         api.post(note: note).subscribe(onNext: { _ in
             NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
         }, onError: { [weak self] error in

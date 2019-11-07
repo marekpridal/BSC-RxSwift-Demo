@@ -59,7 +59,7 @@ final class NotesViewController: UIViewController {
     }
 
     private func bindModelSelection() {
-        tableView.rx.modelSelected(NoteTO.self).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] note in
+        tableView.rx.modelSelected(Note.self).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] note in
             let noteDetailVC = NoteDetailViewController.instantiate()
             noteDetailVC.model.note.accept(note)
             self?.bindNoteError(model: noteDetailVC.model)
@@ -68,7 +68,7 @@ final class NotesViewController: UIViewController {
     }
 
     private func bindModelDelete() {
-        tableView.rx.modelDeleted(NoteTO.self).subscribe(onNext: { [weak self] note in
+        tableView.rx.modelDeleted(Note.self).subscribe(onNext: { [weak self] note in
             print("Deleted note \(note)")
             self?.model.delete(note: note)
         }).disposed(by: disposeBag)

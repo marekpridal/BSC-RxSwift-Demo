@@ -11,7 +11,7 @@ import RxRelay
 import RxSwift
 
 final class NotesViewModel {
-    let notes = BehaviorRelay<[NoteTO]>(value: [])
+    let notes = BehaviorRelay<[Note]>(value: [])
     let error = PublishSubject<Error>()
 
     private let disposeBag = DisposeBag()
@@ -32,14 +32,14 @@ final class NotesViewModel {
     }
 
     func refreshData() {
-        api.getNotes().catchError({ [weak self] error -> Observable<[NoteTO]> in
+        api.getNotes().catchError({ [weak self] error -> Observable<[Note]> in
             self?.error.onNext(error)
             return Observable.just([])
         }).bind(to: notes).disposed(by: disposeBag)
     }
 
-    func delete(note: NoteTO) {
-        api.remove(note: note).compactMap { [weak self] noteDeleted -> [NoteTO]? in
+    func delete(note: Note) {
+        api.remove(note: note).compactMap { [weak self] noteDeleted -> [Note]? in
             guard noteDeleted else {
                 self?.error.onNext(GeneralError())
                 return nil
