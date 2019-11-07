@@ -21,9 +21,9 @@ final class NoteDetailViewModel {
     weak var delegate: NoteDetailViewModelDelegate?
 
     private let disposeBag = DisposeBag()
-    private let api: Networkig
+    private let api: Networking
 
-    init(api: Networkig = Networkig()) {
+    init(api: Networking = Networking()) {
         self.api = api
     }
 

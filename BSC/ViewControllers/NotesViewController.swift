@@ -6,23 +6,37 @@
 //  Copyright © 2018 Marek Pridal. All rights reserved.
 //
 
-import Reusable
 import RxCocoa
 import RxSwift
 import UIKit
 
 final class NotesViewController: UIViewController {
-    @IBOutlet private weak var tableView: UITableView!
+    let viewModel: NotesViewModel
 
-    private let refreshControl = UIRefreshControl()
-
-    let viewModel = NotesViewModel()
     private let disposeBag = DisposeBag()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Identifier.noteCell)
+        return tableView
+    }()
+    private lazy var refreshControl: UIRefreshControl = {
+        .init()
+    }()
+
+    init(viewModel: NotesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupRefreshControl()
+        setupLayout()
         setupTableViewDataSource()
         bindModelDelete()
         bindModelSelection()
@@ -39,6 +53,15 @@ final class NotesViewController: UIViewController {
         }
     }
 
+    private func setupLayout() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+
     private func setupRefreshControl() {
         tableView.refreshControl = refreshControl
 
@@ -50,8 +73,6 @@ final class NotesViewController: UIViewController {
     }
 
     private func setupTableViewDataSource() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Identifier.noteCell)
-
         viewModel.notes.observeOn(MainScheduler.asyncInstance).bind { [weak self] _ in
             self?.refreshControl.endRefreshing()
         }.disposed(by: disposeBag)
@@ -100,8 +121,4 @@ final class NotesViewController: UIViewController {
             })
         }.disposed(by: disposeBag)
     }
-}
-
-extension NotesViewController: StoryboardSceneBased {
-    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 }

@@ -6,20 +6,30 @@
 //  Copyright © 2018 Marek Pridal. All rights reserved.
 //
 
-import Reusable
 import RxCocoa
 import RxSwift
 import UIKit
 
 final class NoteDetailViewController: UIViewController {
-    let viewModel = NoteDetailViewModel()
+    let viewModel: NoteDetailViewModel
+
+    private lazy var noteTextView: UITextView = {
+       UITextView()
+    }()
     private let disposeBag = DisposeBag()
 
-    @IBOutlet private weak var noteTextView: UITextView!
+    init(viewModel: NoteDetailViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupLayout()
         setupNoteBinding()
         setupSaveBinding()
         noteTextView.becomeFirstResponder()
@@ -32,6 +42,15 @@ final class NoteDetailViewController: UIViewController {
             print("Saving updated note \(note)")
         }
         view.endEditing(true)
+    }
+
+    private func setupLayout() {
+        view.addSubview(noteTextView)
+        noteTextView.translatesAutoresizingMaskIntoConstraints = false
+        noteTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        noteTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        noteTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        noteTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 
     private func setupNoteBinding() {
@@ -47,8 +66,4 @@ final class NoteDetailViewController: UIViewController {
             print("Saving new note \(newNote)")
         }.disposed(by: disposeBag)
     }
-}
-
-extension NoteDetailViewController: StoryboardSceneBased {
-    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 }

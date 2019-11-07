@@ -8,16 +8,19 @@
 
 import Foundation
 import RxSwift
+import Swinject
 import UIKit
 
 final class ApplicationCoordinator {
     private let presenter: UINavigationController
     private let window: UIWindow
     private let disposeBag = DisposeBag()
+    private let container: Container
 
-    fileprivate init(window: UIWindow, navigationController: UINavigationController) {
+    fileprivate init(window: UIWindow, navigationController: UINavigationController, container: Container) {
         self.presenter = navigationController
         self.window = window
+        self.container = container
     }
 
     func start() {
@@ -28,13 +31,13 @@ final class ApplicationCoordinator {
     }
 
     func showNotes() {
-        let notes = NotesViewController.instantiate()
+        guard let notes = container.resolve(NotesViewController.self) else { return }
         notes.viewModel.delegate = self
         presenter.pushViewController(notes, animated: true)
     }
 
     static func startApplicationCoordinator(window: UIWindow) -> ApplicationCoordinator {
-        let applicationCoordinator = ApplicationCoordinator(window: window, navigationController: UINavigationController())
+        let applicationCoordinator = ApplicationCoordinator(window: window, navigationController: UINavigationController(), container: AppDependencyInjectionContainer.shared.container)
         applicationCoordinator.start()
         return applicationCoordinator
     }
@@ -42,7 +45,7 @@ final class ApplicationCoordinator {
 
 extension ApplicationCoordinator: NotesViewModelDelegate {
     func showNoteDetail(note: Note, errorHandler: @escaping (Error) -> Void) {
-        let noteVC = NoteDetailViewController.instantiate()
+        guard let noteVC = container.resolve(NoteDetailViewController.self) else { return }
         noteVC.viewModel.errorHandler = errorHandler
         noteVC.viewModel.delegate = self
         noteVC.viewModel.note.accept(note)
@@ -50,7 +53,7 @@ extension ApplicationCoordinator: NotesViewModelDelegate {
     }
 
     func showNewNoteForm(errorHandler: @escaping (Error) -> Void) {
-        let noteVC = NoteDetailViewController.instantiate()
+        guard let noteVC = container.resolve(NoteDetailViewController.self) else { return }
         noteVC.viewModel.delegate = self
         noteVC.viewModel.errorHandler = errorHandler
         noteVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save".localized, style: .done, target: nil, action: nil)

@@ -7,7 +7,9 @@ target 'BSC' do
 
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'Reusable'
+  pod 'Swinject'
+  pod 'SwinjectAutoregistration'
+  pod 'SwinjectStoryboard', :git => 'https://github.com/Swinject/SwinjectStoryboard.git', :branch => 'master'
 
 end
 
