@@ -13,7 +13,7 @@ extension UIViewController {
     var content: UIViewController {
         if let navVC = self as? UINavigationController {
             return navVC.visibleViewController ?? self
-        }else {
+        } else {
             return self
         }
     }

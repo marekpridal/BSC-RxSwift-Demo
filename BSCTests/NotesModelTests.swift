@@ -12,15 +12,15 @@ import RxSwift
 @testable import BSC
 
 final class NotesModelTests: XCTestCase {
-    
+
     override func setUp() {
         super.setUp()
     }
-    
+
     override func tearDown() {
         super.tearDown()
     }
-    
+
     func testMockDataConsistency() {
         let disposeBag = DisposeBag()
         let model = NotesViewModel()

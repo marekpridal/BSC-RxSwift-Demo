@@ -11,11 +11,11 @@ import RxSwift
 import RxCocoa
 
 final class NotesViewController: UIViewController {
-    
+
     @IBOutlet private weak var tableView: UITableView!
-    
+
     private let refreshControl = UIRefreshControl()
-    
+
     let model = NotesViewModel()
     private let disposeBag = DisposeBag()
 
@@ -30,7 +30,7 @@ final class NotesViewController: UIViewController {
         setupAddNewNote()
         setupSettings()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let selectedRows = tableView.indexPathsForSelectedRows {
@@ -39,28 +39,28 @@ final class NotesViewController: UIViewController {
             }
         }
     }
-    
+
     private func setupRefreshControl() {
         tableView.refreshControl = refreshControl
-        
+
         refreshControl.rx.controlEvent(UIControl.Event.valueChanged).asDriver().drive(onNext: {
             [weak self] in
             self?.refreshControl.beginRefreshing()
             self?.model.refreshData()
         }).disposed(by: disposeBag)
     }
-    
+
     private func setupTableViewDataSource() {
         model.notes.observeOn(MainScheduler.asyncInstance).bind { [weak self] (_) in
             self?.refreshControl.endRefreshing()
         }.disposed(by: disposeBag)
-        
+
         model.notes.bind(to: tableView.rx.items(cellIdentifier: Identifier.noteCell)) {
-            row, note, cell in
+            _, note, cell in
             cell.textLabel?.text = note.title
         }.disposed(by: disposeBag)
     }
-    
+
     private func bindModelSelection() {
         tableView.rx.modelSelected(NoteTO.self).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] (note) in
             let noteDetailVC = NoteDetailViewController.instantiate()
@@ -69,14 +69,14 @@ final class NotesViewController: UIViewController {
             self?.navigationController?.pushViewController(noteDetailVC, animated: true)
         }).disposed(by: disposeBag)
     }
-    
+
     private func bindModelDelete() {
         tableView.rx.modelDeleted(NoteTO.self).subscribe(onNext: { [weak self] (note) in
             print("Deleted note \(note)")
             self?.model.delete(note: note)
         }).disposed(by: disposeBag)
     }
-    
+
     private func bindError() {
         model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: {
             error in
@@ -85,7 +85,7 @@ final class NotesViewController: UIViewController {
             self.present(alertVC, animated: true, completion: nil)
         }).disposed(by: disposeBag)
     }
-    
+
     private func setupAddNewNote() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
         navigationItem.rightBarButtonItem?.rx.tap.bind { [weak self] in
@@ -109,7 +109,7 @@ final class NotesViewController: UIViewController {
             self?.navigationController?.present(alertVC, animated: true, completion: nil)
         }).disposed(by: disposeBag)
     }
-    
+
     private func setupSettings() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings".localized, style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem?.rx.tap.bind {

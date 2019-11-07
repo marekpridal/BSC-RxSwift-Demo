@@ -16,11 +16,11 @@ final class NoteDetailViewModel {
 
     private let disposeBag = DisposeBag()
     private let api: Networkig
-    
+
     init(api: Networkig = Networkig()) {
         self.api = api
     }
-    
+
     func update(note: NoteTO) {
         api.update(note: note).subscribe(onNext: { (_) in
             NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
@@ -28,7 +28,7 @@ final class NoteDetailViewModel {
             self?.error.onNext(error)
         }).disposed(by: disposeBag)
     }
-    
+
     func new(note: NoteTO) {
         api.post(note: note).subscribe(onNext: { (_) in
             NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)

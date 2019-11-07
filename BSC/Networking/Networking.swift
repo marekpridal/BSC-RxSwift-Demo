@@ -11,16 +11,16 @@ import RxSwift
 
 final class Networkig {
     private let endpoint = URL(string: "http://private-9aad-note10.apiary-mock.com/notes")!
-    
+
     func getNotes() -> Observable<[NoteTO]> {
         return Observable<[NoteTO]>.create({ [weak self] observer in
             guard let self = self else {
                 observer.onError(GeneralError())
                 return Disposables.create()
             }
-            
+
             let request = URLRequest(url: self.endpoint)
-            
+
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if (response as? HTTPURLResponse)?.statusCode == 200, let data = data {
                     do {
@@ -36,22 +36,22 @@ final class Networkig {
                 }
             }
             task.resume()
-            
+
             return Disposables.create { task.cancel() }
         })
     }
-    
-    func post(note:NoteTO) -> Observable<NoteTO> {
+
+    func post(note: NoteTO) -> Observable<NoteTO> {
         return Observable<NoteTO>.create({ [weak self] observer in
             guard let self = self else {
                 observer.onError(GeneralError())
                 return Disposables.create()
             }
-            
+
             var request = URLRequest(url: self.endpoint)
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
+
             do {
                 request.httpBody = try JSONEncoder().encode(note)
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -69,28 +69,28 @@ final class Networkig {
                     }
                 }
                 task.resume()
-                
+
                 return Disposables.create {
                     task.cancel()
                 }
-            }catch let error {
+            } catch let error {
                 observer.onError(error)
             }
             return Disposables.create()
         })
     }
-    
-    func update(note:NoteTO) -> Observable<NoteTO> {
+
+    func update(note: NoteTO) -> Observable<NoteTO> {
         return Observable<NoteTO>.create({ [weak self] observer in
             guard let self = self, let noteId = note.id else {
                 observer.onError(GeneralError())
                 return Disposables.create()
             }
-        
+
             var request = URLRequest(url: self.endpoint.appendingPathComponent("\(noteId)"))
             request.httpMethod = "PUT"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
+
             do {
                 request.httpBody = try JSONEncoder().encode(note)
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -108,27 +108,27 @@ final class Networkig {
                     }
                 }
                 task.resume()
-                
+
                 return Disposables.create {
                     task.cancel()
                 }
-            }catch let error {
+            } catch let error {
                 observer.onError(error)
             }
             return Disposables.create()
         })
     }
-    
-    func remove(note:NoteTO) -> Observable<Bool> {
+
+    func remove(note: NoteTO) -> Observable<Bool> {
         return Observable<Bool>.create({ [weak self] observer in
             guard let self = self, let noteId = note.id else {
                 observer.onError(GeneralError())
                 return Disposables.create()
             }
-            
+
             var request = URLRequest(url: self.endpoint.appendingPathComponent("\(noteId)"))
             request.httpMethod = "DELETE"
-            
+
             let task = URLSession.shared.dataTask(with: request) { _, response, error in
                 if (response as? HTTPURLResponse)?.statusCode == 204 {
                     observer.onNext(true)
@@ -139,7 +139,7 @@ final class Networkig {
                 }
             }
             task.resume()
-            
+
             return Disposables.create {
                 task.cancel()
             }

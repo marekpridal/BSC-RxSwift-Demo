@@ -15,17 +15,17 @@ final class NoteDetailViewController: UIViewController {
 
     let model = NoteDetailViewModel()
     private let disposeBag = DisposeBag()
-    
+
     @IBOutlet private weak var noteTextView: UITextView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupNoteBinding()
         setupSaveBinding()
         noteTextView.becomeFirstResponder()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if let note = model.note.value {
@@ -34,20 +34,20 @@ final class NoteDetailViewController: UIViewController {
         }
         view.endEditing(true)
     }
-    
+
     private func setupBinding() {
         model.note.map { $0?.title }.distinctUntilChanged().bind(to: noteTextView.rx.text).disposed(by: disposeBag)
-        
+
         navigationItem.rightBarButtonItem?.rx.tap.bind { [weak self] in
 //            self?.model.new(note: .init(id: nil, title: self?.noteTextView.text))
         }
         .disposed(by: disposeBag)
     }
-    
+
     private func setupNoteBinding() {
-        model.note.map{ $0?.title }.bind(to: noteTextView.rx.text).disposed(by: disposeBag)
+        model.note.map { $0?.title }.bind(to: noteTextView.rx.text).disposed(by: disposeBag)
     }
-    
+
     private func setupSaveBinding() {
         navigationItem.rightBarButtonItem?.rx.tap.bind {
             [weak self] in
@@ -60,6 +60,6 @@ final class NoteDetailViewController: UIViewController {
     }
 }
 
-extension NoteDetailViewController : StoryboardSceneBased {
+extension NoteDetailViewController: StoryboardSceneBased {
     static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 }

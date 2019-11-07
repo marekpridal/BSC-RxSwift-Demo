@@ -8,22 +8,20 @@
 
 import UIKit
 
-
 private let appleLanguagesKey = "AppleLanguages"
 
-
 enum Language: String {
-    
+
     case english = "en"
     case czech = "cs"
-    
+
     var semantic: UISemanticContentAttribute {
         switch self {
         case .english, .czech:
             return .forceLeftToRight
         }
     }
-    
+
     static var language: Language {
         get {
             if let languageCode = UserDefaults.standard.string(forKey: appleLanguagesKey),
@@ -40,7 +38,7 @@ enum Language: String {
                     ) else {
                         return Language.english
                 }
-                
+
                 return localization
             }
         }
@@ -48,12 +46,12 @@ enum Language: String {
             guard language != newValue else {
                 return
             }
-            
+
             UserDefaults.standard.set([newValue.rawValue], forKey: appleLanguagesKey)
             UserDefaults.standard.synchronize()
-            
+
             UIView.appearance().semanticContentAttribute = newValue.semantic
-            
+
             UIApplication.shared.windows[0].rootViewController = UIStoryboard(
                 name: "Main",
                 bundle: nil
@@ -61,7 +59,6 @@ enum Language: String {
         }
     }
 }
-
 
 extension String {
     var localized: String {
