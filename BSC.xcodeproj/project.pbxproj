@@ -21,7 +21,6 @@
 		DF3725D320B9B1F3004F75DC /* NoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D220B9B1F3004F75DC /* NoteDetailViewController.swift */; };
 		DF3725D520B9B21A004F75DC /* NoteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D420B9B21A004F75DC /* NoteDetailViewModel.swift */; };
 		DF3725D720B9B5C5004F75DC /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D620B9B5C5004F75DC /* Identifier.swift */; };
-		DF3725D920B9C19C004F75DC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D820B9C19C004F75DC /* SettingsViewController.swift */; };
 		DF3725DB20B9C270004F75DC /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725DA20B9C270004F75DC /* Localizable.swift */; };
 		DF3725DE20B9C450004F75DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF3725E020B9C450004F75DC /* Localizable.strings */; };
 		DF3725F520BAAE7E004F75DC /* NotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725CE20B89970004F75DC /* NotesViewModel.swift */; };
@@ -62,7 +61,6 @@
 		DF3725D220B9B1F3004F75DC /* NoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailViewController.swift; sourceTree = "<group>"; };
 		DF3725D420B9B21A004F75DC /* NoteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NoteDetailViewModel.swift; path = BSC/Models/NoteDetailViewModel.swift; sourceTree = SOURCE_ROOT; };
 		DF3725D620B9B5C5004F75DC /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
-		DF3725D820B9C19C004F75DC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DF3725DA20B9C270004F75DC /* Localizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		DF3725DF20B9C450004F75DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DF3725E120B9C468004F75DC /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -173,7 +171,6 @@
 			children = (
 				DF3725D220B9B1F3004F75DC /* NoteDetailViewController.swift */,
 				DF3725CC20B89938004F75DC /* NotesViewController.swift */,
-				DF3725D820B9C19C004F75DC /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -443,7 +440,6 @@
 				DF3725CD20B89938004F75DC /* NotesViewController.swift in Sources */,
 				DF3725D720B9B5C5004F75DC /* Identifier.swift in Sources */,
 				DF3725D520B9B21A004F75DC /* NoteDetailViewModel.swift in Sources */,
-				DF3725D920B9C19C004F75DC /* SettingsViewController.swift in Sources */,
 				DFC2727C237470E10093CA08 /* GeneralError.swift in Sources */,
 				DF3725D320B9B1F3004F75DC /* NoteDetailViewController.swift in Sources */,
 				DF3725CF20B89970004F75DC /* NotesViewModel.swift in Sources */,

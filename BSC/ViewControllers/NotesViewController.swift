@@ -27,7 +27,6 @@ final class NotesViewController: UIViewController {
         bindModelSelection()
         bindError()
         setupAddNewNote()
-        setupSettings()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -76,10 +75,10 @@ final class NotesViewController: UIViewController {
     }
 
     private func bindError() {
-        model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { error in
+        model.error.observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] error in
             let alertVC = UIAlertController(title: "ALERT_TITLE".localized, message: error.localizedDescription, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
+            self?.present(alertVC, animated: true, completion: nil)
         }).disposed(by: disposeBag)
     }
 
@@ -105,18 +104,5 @@ final class NotesViewController: UIViewController {
             alertVC.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: nil))
             self?.navigationController?.present(alertVC, animated: true, completion: nil)
         }).disposed(by: disposeBag)
-    }
-
-    private func setupSettings() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings".localized, style: .plain, target: nil, action: nil)
-        navigationItem.leftBarButtonItem?.rx.tap.bind {
-            [weak self] in
-            guard let self = self else { return }
-            let navigationController = UINavigationController()
-            let settingsVC = SettingsViewController.instantiate()
-            navigationController.viewControllers = [settingsVC]
-            navigationController.modalPresentationStyle = .popover
-            self.navigationController?.present(navigationController, animated: true, completion: nil)
-        }.disposed(by: disposeBag)
     }
 }
