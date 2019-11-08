@@ -28,8 +28,7 @@ Swift is preferred way. Objective-C is simply OK.
 The project has to contain at least one unit test.
 
 
-
-## Instalation
+## Installation
 1. Use `git clone` for getting repository
 2. Use command line to navigate into root directory of project
 3. Run `pod install` in terminal
