@@ -22,22 +22,26 @@ final class NoteDetailViewModel {
 
     private let disposeBag = DisposeBag()
     private let api: Api
+    private let storage: LocalStorage
 
-    init(api: Api) {
+    init(api: Api, storage: LocalStorage) {
         self.api = api
+        self.storage = storage
     }
 
     func update(note: Note) {
-        api.update(note: note).subscribe(onNext: { _ in
-            NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
+        api.update(note: note).subscribe(onNext: { [weak self] note in
+            print("Note updated \(note)")
+            self?.storage.update(note: note)
         }, onError: { [weak self] error in
             self?.errorHandler?(error)
         }).disposed(by: disposeBag)
     }
 
     func new(note: Note) {
-        api.post(note: note).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] _ in
-            NotificationCenter.default.post(name: NSNotification.Name(Identifier.update), object: nil)
+        api.post(note: note).observeOn(MainScheduler.asyncInstance).subscribe(onNext: { [weak self] note in
+            print("New note created \(note)")
+            self?.storage.add(note: note)
             self?.delegate?.noteDetailDidFinish()
         }, onError: { [weak self] error in
             self?.delegate?.noteDetailDidFinish()

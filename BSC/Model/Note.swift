@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Note: Codable {
+struct Note: Codable, Equatable {
     let id: Int?
     let title: String
 

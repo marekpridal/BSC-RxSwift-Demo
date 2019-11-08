@@ -31,6 +31,7 @@
 		DF3725FB20BAB057004F75DC /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725CA20B890A2004F75DC /* Note.swift */; };
 		DF3725FC20BAB05C004F75DC /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D620B9B5C5004F75DC /* Identifier.swift */; };
 		DFC2727C237470E10093CA08 /* GeneralError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2727B237470E10093CA08 /* GeneralError.swift */; };
+		DFF60D7F2375975F002F8BF7 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF60D7E2375975F002F8BF7 /* LocalStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		DF3725F820BAAFB1004F75DC /* NotesModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesModelTests.swift; sourceTree = "<group>"; };
 		DF3725FD20BAB80D004F75DC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DFC2727B237470E10093CA08 /* GeneralError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralError.swift; sourceTree = "<group>"; };
+		DFF60D7E2375975F002F8BF7 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		FAD85E4F6CF33870E8029A3A /* Pods-BSC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSC.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSC/Pods-BSC.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +158,7 @@
 		DF3725AD20B88EFE004F75DC /* BSC */ = {
 			isa = PBXGroup;
 			children = (
+				DFF60D7D2375974C002F8BF7 /* Storage */,
 				DF1BA1142374955B00CC32DB /* DI */,
 				DF1BA11123748CED00CC32DB /* Coordinators */,
 				DFC2727A237470CD0093CA08 /* Custom Errors */,
@@ -249,6 +252,14 @@
 				DFC2727B237470E10093CA08 /* GeneralError.swift */,
 			);
 			path = "Custom Errors";
+			sourceTree = "<group>";
+		};
+		DFF60D7D2375974C002F8BF7 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				DFF60D7E2375975F002F8BF7 /* LocalStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,6 +472,7 @@
 				DF3725D720B9B5C5004F75DC /* Identifier.swift in Sources */,
 				DF3725D520B9B21A004F75DC /* NoteDetailViewModel.swift in Sources */,
 				DFC2727C237470E10093CA08 /* GeneralError.swift in Sources */,
+				DFF60D7F2375975F002F8BF7 /* LocalStorage.swift in Sources */,
 				DF1BA1162374957E00CC32DB /* AppDependencyInjectionContainer.swift in Sources */,
 				DF3725D320B9B1F3004F75DC /* NoteDetailViewController.swift in Sources */,
 				DF3725CF20B89970004F75DC /* NotesViewModel.swift in Sources */,

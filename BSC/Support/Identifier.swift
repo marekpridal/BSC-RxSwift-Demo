@@ -9,6 +9,5 @@
 import Foundation
 
 enum Identifier {
-    static let update = "Update"
     static let noteCell = "NoteCell"
 }

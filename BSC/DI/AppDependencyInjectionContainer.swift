@@ -21,6 +21,7 @@ final class AppDependencyInjectionContainer {
     }
 
     private func register() {
+        container.register(LocalStorage.self, factory: { _ in LocalStorage.shared })
         container.register(Api.self, factory: { _ in Networking() })
 //        container.register(Api.self, factory: { _ in MockNetworking() })
 

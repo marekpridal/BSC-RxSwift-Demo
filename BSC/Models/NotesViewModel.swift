@@ -23,15 +23,15 @@ final class NotesViewModel {
 
     private let disposeBag = DisposeBag()
     private let api: Api
+    private let storage: LocalStorage
 
-    init(api: Api) {
+    init(api: Api, storage: LocalStorage) {
         self.api = api
+        self.storage = storage
+
+        storage.notes.bind(to: notes).disposed(by: disposeBag)
 
         refreshData()
-        NotificationCenter.default.rx.notification(Notification.Name.init(Identifier.update)).subscribe { [weak self] _ in
-            self?.refreshData()
-        }
-        .disposed(by: disposeBag)
     }
 
     deinit {
@@ -42,20 +42,20 @@ final class NotesViewModel {
         api.getNotes().catchError({ [weak self] error -> Observable<[Note]> in
             self?.error.onNext(error)
             return Observable.just([])
-        }).bind(to: notes).disposed(by: disposeBag)
+        }).bind(to: storage.notes).disposed(by: disposeBag)
     }
 
     func delete(note: Note) {
-        api.remove(note: note).compactMap { [weak self] noteDeleted -> [Note]? in
+        api.remove(note: note).compactMap { [weak self] noteDeleted -> Note? in
             guard noteDeleted else {
                 self?.error.onNext(GeneralError())
                 return nil
             }
-            var notes = self?.notes.value
-            notes?.removeAll(where: { $0.id == note.id })
-            return notes
+            return note
         }
-        .bind(to: notes)
+        .subscribe(onNext: { [weak self] note in
+            self?.storage.delete(note: note)
+        })
         .disposed(by: disposeBag)
     }
 }

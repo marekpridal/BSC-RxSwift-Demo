@@ -93,14 +93,9 @@ final class Networking: Api {
 
             do {
                 request.httpBody = try JSONEncoder().encode(note)
-                let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                    if (response as? HTTPURLResponse)?.statusCode == 201, let data = data {
-                        do {
-                            let responseObject = try JSONDecoder().decode(Note.self, from: data)
-                            observer.onNext(responseObject)
-                        } catch let e {
-                            observer.onError(e)
-                        }
+                let task = URLSession.shared.dataTask(with: request) { _, response, error in
+                    if (response as? HTTPURLResponse)?.statusCode == 201 {
+                        observer.onNext(note)
                     } else if let error = error {
                         observer.onError(error)
                     } else {
