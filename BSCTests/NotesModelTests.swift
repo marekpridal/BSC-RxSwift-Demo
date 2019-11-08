@@ -19,4 +19,13 @@ final class NotesModelTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
+
+    func testAddNewNote() {
+        let notesViewModel = NotesViewModel(api: MockNetworking(), storage: LocalStorage.shared)
+        let originalCountOfNotes = notesViewModel.notes.value
+
+        LocalStorage.shared.add(note: Note(id: 20, title: "Unit test"))
+
+        XCTAssertEqual(originalCountOfNotes.count + 1, notesViewModel.notes.value.count)
+    }
 }

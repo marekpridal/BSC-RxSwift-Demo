@@ -26,8 +26,6 @@
 		DF3725DB20B9C270004F75DC /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725DA20B9C270004F75DC /* Localizable.swift */; };
 		DF3725DE20B9C450004F75DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF3725E020B9C450004F75DC /* Localizable.strings */; };
 		DF3725F920BAAFB1004F75DC /* NotesModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725F820BAAFB1004F75DC /* NotesModelTests.swift */; };
-		DF3725FB20BAB057004F75DC /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725CA20B890A2004F75DC /* Note.swift */; };
-		DF3725FC20BAB05C004F75DC /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3725D620B9B5C5004F75DC /* Identifier.swift */; };
 		DFC2727C237470E10093CA08 /* GeneralError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2727B237470E10093CA08 /* GeneralError.swift */; };
 		DFF60D7F2375975F002F8BF7 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF60D7E2375975F002F8BF7 /* LocalStorage.swift */; };
 /* End PBXBuildFile section */
@@ -486,8 +484,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF3725FB20BAB057004F75DC /* Note.swift in Sources */,
-				DF3725FC20BAB05C004F75DC /* Identifier.swift in Sources */,
 				DF3725F920BAAFB1004F75DC /* NotesModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
