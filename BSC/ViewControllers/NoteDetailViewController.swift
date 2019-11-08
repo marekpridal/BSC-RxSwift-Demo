@@ -50,8 +50,8 @@ final class NoteDetailViewController: UIViewController {
         noteTextView.translatesAutoresizingMaskIntoConstraints = false
         noteTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         noteTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        noteTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        noteTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        noteTextView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        noteTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
     private func setupNoteBinding() {
