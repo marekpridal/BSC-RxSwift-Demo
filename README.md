@@ -1,39 +1,41 @@
-#  BSC Úkol
+# Task
 
-## Zadání
-### Připravte jednoduchou nativní aplikaci pro iPhone tak, aby se dala po naklonování repository zbuildit, nainstalovat a spustit.
+Implement simple native iPhone application for management of personal notes. The application should be ready to build and run right after clone of your repository.
 
-Předpřipravený server BSC s REST API, které bude aplikace používat:
-Root URL: http://private-9aad-note10.apiary-mock.com/ (případně použijte REST api podle uvážení: https://www.firebase.com/ , http://jsonplaceholder.typicode.com/, nebo vlastní řešení)
-Metody:
-GET /notes
-GET /notes/{id}
-POST /notes
-PUT /notes/{id}
-DELETE /notes/{id}
+The application should integrate API, which is ready to use at URL: <a href="http://private-9aad-note10.apiary-mock.com/">http://private-9aad-note10.apiary-mock.com/</a>
 
-### Funkční požadavky:
-Po instalaci a spuštění se objeví stránka se seznamem poznámek.
-Je možné zobrazit detail, editovat, smazat a vytvořit novou poznámku. (Apiary Mock bude vracet stále stejná data, předmětem úkolu je volat správné metody)
-V aplikaci bude možné měnit EN/CZ jazyk.
+### Methods
+`GET /notes`
 
-### Nefunkční požadavky:
-GUI vytvořte dle vlastního návrhu, ale ctěte standardy a zvyklosti platformy.
-Aplikace by měla být sestavena především ze standardních nativních komponent.
-Preferovaný jazyk je Swift.
-Projekt by měl obsahovat alespoň jeden základní test.
+`GET /notes/{id}`
 
-Kód vyvíjejte do github/bitbucket veřejného repository, v souboru README.md popište instrukce pro instalaci a spuštění aplikace a testu, a pošlete URL e-mailem.
+`POST /notes`
+
+`PUT /notes/{id}`
+
+`DELETE /notes/{id}`
 
 
-## Instalace
-1. Přes git clone si naklonujte repozitář
-2. Přejděte pomocí terminálu do kořenové složky repozitáře, která obsahuje mj. projektový soubor a Podfile
-3. V terminálu spusťte příkaz pod install
-4. Otevřete v Xcodu projekt BSC.xcworkspace
-5. CMD+R
+### Functional requirements
+Main page with list of notes should be opened right after installation/opening of the application.
+User can display, edit, delete and create new note.
 
-## Testy
-1. Následujte pokyny z kapitoly Instalace
-2. V Xcodu s otevřeným BSC.xcworkspace přejděte do skupiny BSCTests
-3. V souboru NotesModelTests.swift najdete požadovanou metodu s testem
+
+### Non-functional requirements
+You are the GUI designer, feel free to do whatever you want, but follow platform conventions and standards.
+The application should be created from standard and native components.
+Swift is preferred way. Objective-C is simply OK.
+The project has to contain at least one unit test.
+
+
+
+## Instalation
+1. Use `git clone` for getting repository
+2. Use command line to navigate into root directory of project
+3. Run `pod install` in terminal
+4. Open `BSC.xcworkspace` file
+5. Run project using `CMD+R`
+
+## Unit tests
+1. After successful project setup, go to `BSCTests` group
+2. In `NotesModelTests.swift` file find test method `testAddNewNote` and run it by clicking on symbol of diamond
