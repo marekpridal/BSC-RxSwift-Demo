@@ -19,13 +19,4 @@ final class NotesModelTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
-
-    func testMockDataConsistency() {
-        let disposeBag = DisposeBag()
-        let model = NotesViewModel()
-        let expectation = XCTestExpectation(description: "Wait until notes are downloaded")
-        model.notes.subscribe(onNext: { XCTAssert($0.count == 2, "Mock API returns invalid number of notes \($0.count)"); expectation.fulfill() }).disposed(by: disposeBag)
-        model.refreshData()
-        wait(for: [expectation], timeout: 10.0)
-    }
 }

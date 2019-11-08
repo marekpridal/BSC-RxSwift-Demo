@@ -13,6 +13,7 @@ PODS:
 
 DEPENDENCIES:
   - RxCocoa
+  - RxRelay
   - RxSwift
   - Swinject
   - SwinjectAutoregistration
@@ -44,6 +45,6 @@ SPEC CHECKSUMS:
   SwinjectAutoregistration: d0de7e48db3601b8b130f2f84e5a8399e0224135
   SwinjectStoryboard: f0d5b1c16459949d6ff1cbb6610107946b18e1f8
 
-PODFILE CHECKSUM: 848eaa97e03d46812c50c5e39143abb40cfe06b9
+PODFILE CHECKSUM: d3a3171e27c06d5cf7535481ed3e1bddaef615ce
 
 COCOAPODS: 1.8.4

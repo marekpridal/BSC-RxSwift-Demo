@@ -18,5 +18,6 @@ target 'BSCTests' do
   use_frameworks!
 
   pod 'RxSwift'
+  pod 'RxRelay'
 
 end
